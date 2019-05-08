@@ -1,0 +1,36 @@
+[
+  {
+    "ID": "4d1b6816-a07c-fc89-38c5-1c4bd90defdc",
+    "Node": "node1",
+    "Address": "127.0.0.1",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "127.0.0.1",
+      "wan": "127.0.0.1"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceKind": "",
+    "ServiceID": "beep",
+    "ServiceName": "beep",
+    "ServiceTags": [
+    ],
+    "ServiceAddress": "",
+    "ServiceWeights": {
+      "Passing": 1,
+      "Warning": 1
+    },
+    "ServiceMeta": {
+    },
+    "ServicePort": 80,
+    "ServiceEnableTagOverride": false,
+    "ServiceProxyDestination": "",
+    "ServiceProxy": {
+    },
+    "ServiceConnect": {
+    },
+    "CreateIndex": 10,
+    "ModifyIndex": 10
+  }
+]
