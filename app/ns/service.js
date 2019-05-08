@@ -1,5 +1,5 @@
 exports = module.exports = function() {
-  var Client = require('../lib/client');
+  var Client = require('../../lib/client');
   
   
   var api = {};
