@@ -1,0 +1,35 @@
+{
+  "name": "bixby-ns-consul",
+  "version": "0.0.0",
+  "description": "",
+  "author": {
+    "name": "Jared Hanson",
+    "email": "jaredhanson@gmail.com",
+    "url": "http://jaredhanson.net/"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./app",
+  "assembly": {
+    "namespace": "opt/consul/ns",
+    "components": [
+      "resolver"
+    ]
+  },
+  "devDependencies": {
+    "make-node": "^0.3.0",
+    "mocha": "^2.0.0",
+    "chai": "^3.0.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/*.test.js"
+  },
+  "dependencies": {
+    "consul": "^0.34.1"
+  }
+}
