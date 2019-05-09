@@ -35,12 +35,12 @@ describe('ns/service', function() {
         //client.connect(done);
       //});
       
-      it('should resolve', function(done) {
+      it('should resolve SRV record', function(done) {
         _client.catalog = {};
         _client.catalog.service = {};
         _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/beep.json', 'utf8')));
         
-        client.resolve('beep', function(err, user) {
+        client.resolve('beep', 'SRV', function(err, user) {
           expect(_client.catalog.service.nodes.getCall(0).args[0]).to.equal('beep');
           
           expect(err).to.be.null;
