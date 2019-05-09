@@ -21,6 +21,6 @@ exports = module.exports = function() {
 
 exports['@singleton'] = true;
 exports['@implements'] = 'http://i.bixbyjs.org/IService';
-exports['@name'] = 'consul-sd';
+exports['@name'] = 'consul-catalog-http';
 exports['@require'] = [
 ];
