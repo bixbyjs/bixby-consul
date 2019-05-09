@@ -1,0 +1,55 @@
+{
+  "Node": {
+    "ID": "4d1b6816-a07c-fc89-38c5-1c4bd90defdc",
+    "Node": "node1",
+    "Address": "127.0.0.1",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "127.0.0.1",
+      "wan": "127.0.0.1"
+    },
+    "Meta": {
+      "consul-network-segment": ""
+    },
+    "CreateIndex": 9,
+    "ModifyIndex": 10
+  },
+  "Services": {
+    "beep": {
+      "ID": "beep",
+      "Service": "beep",
+      "Tags": [],
+      "Address": "",
+      "Meta": null,
+      "Port": 833,
+      "Weights": {
+        "Passing": 1,
+        "Warning": 1
+      },
+      "EnableTagOverride": false,
+      "ProxyDestination": "",
+      "Proxy": {},
+      "Connect": {},
+      "CreateIndex": 10,
+      "ModifyIndex": 10
+    },
+    "consul": {
+      "ID": "consul",
+      "Service": "consul",
+      "Tags": [],
+      "Address": "",
+      "Meta": null,
+      "Port": 8300,
+      "Weights": {
+        "Passing": 1,
+        "Warning": 1
+      },
+      "EnableTagOverride": false,
+      "ProxyDestination": "",
+      "Proxy": {},
+      "Connect": {},
+      "CreateIndex": 9,
+      "ModifyIndex": 9
+    }
+  }
+}

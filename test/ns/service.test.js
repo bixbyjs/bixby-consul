@@ -35,6 +35,23 @@ describe('ns/service', function() {
         //client.connect(done);
       //});
       
+      it('should resolve A record', function(done) {
+        _client.catalog = {};
+        _client.catalog.node = {};
+        _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/node1.json', 'utf8')));
+        
+        client.resolve('node1', 'A', function(err, user) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.equal('imac');
+          
+          expect(err).to.be.null;
+          expect(user).to.deep.equal([
+            '127.0.0.1'
+          ]);
+          done();
+        });
+        
+      }); // should resolve A record
+      
       it('should resolve SRV record', function(done) {
         _client.catalog = {};
         _client.catalog.service = {};
@@ -50,7 +67,7 @@ describe('ns/service', function() {
           done();
         });
         
-      }); // should get user by id
+      }); // should resolve SRV record
       
     }); // #resolve
     
