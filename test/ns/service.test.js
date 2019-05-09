@@ -45,7 +45,7 @@ describe('ns/service', function() {
           
           expect(err).to.be.null;
           expect(user).to.deep.equal([
-            { name: 'node1.dc1.consul', port: 833 }
+            { name: 'node1.node.dc1.consul', port: 833 }
           ]);
           done();
         });
