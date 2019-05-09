@@ -23,7 +23,7 @@
     },
     "ServiceMeta": {
     },
-    "ServicePort": 80,
+    "ServicePort": 833,
     "ServiceEnableTagOverride": false,
     "ServiceProxyDestination": "",
     "ServiceProxy": {
