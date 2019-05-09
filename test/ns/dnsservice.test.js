@@ -2,7 +2,7 @@ var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var factory = require('../../app/ns/dnsservice');
-var Client = require('../../lib/dnsresolver');
+var Resolver = require('../../lib/dnsresolver');
 var dns = require('dns');
 var fs = require('fs');
 
@@ -33,20 +33,33 @@ describe('ns/dnsservice', function() {
       it('should resolve A record', function(done) {
         _resolver.resolve4 = sinon.stub().yieldsAsync(null, [ '127.0.0.1' ]);
         
-        resolver.resolve('node1', 'A', function(err, user) {
+        resolver.resolve('node1', 'A', function(err, addresses) {
           expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consul');
           
           expect(err).to.be.null;
-          expect(user).to.deep.equal([
+          expect(addresses).to.deep.equal([
             '127.0.0.1'
           ]);
           done();
         });
-        
       }); // should resolve A record
+      
+      it('should resolve SRV record', function(done) {
+        _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
+        
+        resolver.resolve('node1', 'SRV', function(err, addresses) {
+          expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consul');
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([
+            { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 }
+          ]);
+          done();
+        });
+      }); // should resolve SRV record
       
     }); // #resolve
     
-  });
+  }); // DNSResolver
   
 });
