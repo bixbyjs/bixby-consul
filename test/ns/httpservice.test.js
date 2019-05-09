@@ -16,7 +16,7 @@ describe('ns/httpservice', function() {
   it('should be annotated', function() {
     expect(factory['@singleton']).to.equal(true);
     expect(factory['@implements']).to.equal('http://i.bixbyjs.org/IService');
-    expect(factory['@name']).to.equal('consul-sd');
+    expect(factory['@name']).to.equal('consul-catalog-http');
   });
   
   describe('CatalogHTTPClient', function() {
