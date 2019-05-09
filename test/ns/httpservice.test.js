@@ -19,7 +19,7 @@ describe('ns/httpservice', function() {
     expect(factory['@name']).to.equal('consul-sd');
   });
   
-  describe('DirectoryClient', function() {
+  describe('CatalogHTTPClient', function() {
     var _client = sinon.createStubInstance(consul);
     var ClientStub = sinon.stub().returns(_client);
     var Client = $require('../../lib/cataloghttpclient',
