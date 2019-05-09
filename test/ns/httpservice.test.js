@@ -1,13 +1,13 @@
 var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var factory = require('../../app/ns/service');
-var Client = require('../../lib/client');
+var factory = require('../../app/ns/httpservice');
+var Client = require('../../lib/cataloghttpclient');
 var consul = require('consul');
 var fs = require('fs');
 
 
-describe('ns/service', function() {
+describe('ns/httpservice', function() {
   
   it('should export factory function', function() {
     expect(factory).to.be.a('function');
@@ -22,7 +22,7 @@ describe('ns/service', function() {
   describe('DirectoryClient', function() {
     var _client = sinon.createStubInstance(consul);
     var ClientStub = sinon.stub().returns(_client);
-    var Client = $require('../../lib/client',
+    var Client = $require('../../lib/cataloghttpclient',
       { 'consul': ClientStub }
     );
     
