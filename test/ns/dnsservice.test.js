@@ -33,7 +33,7 @@ describe('ns/dnsservice', function() {
       it('should resolve A record', function(done) {
         _resolver.resolve4 = sinon.stub().yieldsAsync(null, [ '127.0.0.1' ]);
         
-        resolver.resolve('node1', 'A', function(err, addresses) {
+        resolver.resolve('node1.consul', 'A', function(err, addresses) {
           expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consul');
           
           expect(err).to.be.null;
@@ -47,8 +47,8 @@ describe('ns/dnsservice', function() {
       it('should resolve SRV record', function(done) {
         _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
         
-        resolver.resolve('node1', 'SRV', function(err, addresses) {
-          expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consul');
+        resolver.resolve('beep.consul', 'SRV', function(err, addresses) {
+          expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('beep.service.consul');
           
           expect(err).to.be.null;
           expect(addresses).to.deep.equal([
