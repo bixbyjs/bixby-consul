@@ -28,7 +28,7 @@ describe('ns/httpservice', function() {
     
     
     describe('#resolve', function() {
-      var client = new Client('https://hansonhq.auth0.com');
+      var client = new Client();
       
       //before(function(done) {
         //sinon.stub(client._creds, 'get').yieldsAsync(null, { username: 'wvaTP5EkEjKxGyLAIzUnsnG6uhyRUTkX', password: 'keyboard cat' });
@@ -40,11 +40,11 @@ describe('ns/httpservice', function() {
         _client.catalog.node = {};
         _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/node1.json', 'utf8')));
         
-        client.resolve('node1', 'A', function(err, user) {
+        client.resolve('node1', 'A', function(err, addresses) {
           expect(_client.catalog.node.services.getCall(0).args[0]).to.equal('node1');
           
           expect(err).to.be.null;
-          expect(user).to.deep.equal([
+          expect(addresses).to.deep.equal([
             '127.0.0.1'
           ]);
           done();
@@ -57,11 +57,11 @@ describe('ns/httpservice', function() {
         _client.catalog.service = {};
         _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/beep.json', 'utf8')));
         
-        client.resolve('beep', 'SRV', function(err, user) {
+        client.resolve('beep', 'SRV', function(err, addresses) {
           expect(_client.catalog.service.nodes.getCall(0).args[0]).to.equal('beep');
           
           expect(err).to.be.null;
-          expect(user).to.deep.equal([
+          expect(addresses).to.deep.equal([
             { name: 'node1.node.dc1.consul', port: 833 }
           ]);
           done();
