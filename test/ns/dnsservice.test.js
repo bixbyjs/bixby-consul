@@ -100,6 +100,18 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve SRV record of external service
       
+      it('should resolve TXT record of external service', function(done) {
+        _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'external-node=true' ], [ 'external-probe=true' ] ]);
+        
+        resolver.resolve('hashicorp.consul', 'TXT', function(err, records) {
+          expect(_resolver.resolveTxt.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+          
+          expect(err).to.be.null;
+          expect(records).to.deep.equal([ [ 'external-node=true' ], [ 'external-probe=true' ] ]);
+          done();
+        });
+      }); // should resolve TXT record of external service
+      
     }); // #resolve
     
   }); // DNSResolver
