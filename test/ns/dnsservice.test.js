@@ -70,35 +70,21 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve A record of external node
       
-      it('should resolve A record of naturally named node', function(done) {
-        _resolver.resolve4 = sinon.stub().yieldsAsync(null, [ '127.0.0.1' ]);
-        
-        resolver.resolve('node1.consul', 'A', function(err, addresses) {
-          expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consul');
-          
-          expect(err).to.be.null;
-          expect(addresses).to.deep.equal([
-            '127.0.0.1'
-          ]);
-          done();
-        });
-      }); // should resolve A record of naturally named node
-      
-      it('should resolve CNAME record of external service', function(done) {
+      it('should resolve CNAME record of external node', function(done) {
         _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
           { value: 'learn.hashicorp.com/consul/', type: 'CNAME' },
           { entries: [ 'external-node=true' ], type: 'TXT' },
           { entries: [ 'external-probe=true' ], type: 'TXT' }
         ]);
         
-        resolver.resolve('hashicorp.consul', 'CNAME', function(err, addresses) {
-          expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+        resolver.resolve('hashicorp.node.dc1.consul', 'CNAME', function(err, addresses) {
+          expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('hashicorp.node.dc1.consul');
           
           expect(err).to.be.null;
           expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
           done();
         });
-      }); // should resolve CNAME record of external service
+      }); // should resolve CNAME record of external node
       
       it('should resolve SRV record', function(done) {
         _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
