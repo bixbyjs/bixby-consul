@@ -100,6 +100,18 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve SRV record of external service
       
+      it('should resolve TXT record', function(done) {
+        _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'consul-network-segment=' ] ]);
+        
+        resolver.resolve('node1.consul', 'TXT', function(err, records) {
+          expect(_resolver.resolveTxt.getCall(0).args[0]).to.equal('node1.node.consul');
+          
+          expect(err).to.be.null;
+          expect(records).to.deep.equal([ [ 'consul-network-segment=' ] ]);
+          done();
+        });
+      }); // should resolve TXT record
+      
       it('should resolve TXT record of external service', function(done) {
         _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'external-node=true' ], [ 'external-probe=true' ] ]);
         
