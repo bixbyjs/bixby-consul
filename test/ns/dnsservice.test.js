@@ -44,6 +44,34 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve A record
       
+      it('should resolve A record of external service', function(done) {
+        _resolver.resolve4 = sinon.stub().yieldsAsync(null, []);
+        
+        resolver.resolve('hashicorp.consul', 'A', function(err, addresses) {
+          expect(_resolver.resolve4.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([]);
+          done();
+        });
+      }); // should resolve A record of external service
+      
+      it('should resolve CNAME record of external service', function(done) {
+        _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
+          { value: 'learn.hashicorp.com/consul/', type: 'CNAME' },
+          { entries: [ 'external-node=true' ], type: 'TXT' },
+          { entries: [ 'external-probe=true' ], type: 'TXT' }
+        ]);
+        
+        resolver.resolve('hashicorp.consul', 'CNAME', function(err, addresses) {
+          expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
+          done();
+        });
+      }); // should resolve CNAME record of external service
+      
       it('should resolve SRV record', function(done) {
         _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
         
@@ -57,6 +85,20 @@ describe('ns/dnsservice', function() {
           done();
         });
       }); // should resolve SRV record
+      
+      it('should resolve SRV record of external service', function(done) {
+        _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'hashicorp.node.dc1.consul', port: 80, priority: 1, weight: 1 } ]);
+        
+        resolver.resolve('learn.consul', 'SRV', function(err, addresses) {
+          expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('learn.service.consul');
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([
+            { name: 'hashicorp.node.dc1.consul', port: 80, priority: 1, weight: 1 }
+          ]);
+          done();
+        });
+      }); // should resolve SRV record of external service
       
     }); // #resolve
     

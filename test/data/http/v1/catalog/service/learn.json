@@ -1,0 +1,35 @@
+[
+  {
+    "ID": "",
+    "Node": "hashicorp",
+    "Address": "learn.hashicorp.com/consul/",
+    "Datacenter": "dc1",
+    "TaggedAddresses": null,
+    "NodeMeta": {
+      "external-node": "true",
+      "external-probe": "true"
+    },
+    "ServiceKind": "",
+    "ServiceID": "learn1",
+    "ServiceName": "learn",
+    "ServiceTags": [
+
+    ],
+    "ServiceAddress": "",
+    "ServiceWeights": {
+      "Passing": 1,
+      "Warning": 1
+    },
+    "ServiceMeta": {
+    },
+    "ServicePort": 80,
+    "ServiceEnableTagOverride": false,
+    "ServiceProxyDestination": "",
+    "ServiceProxy": {
+    },
+    "ServiceConnect": {
+    },
+    "CreateIndex": 11,
+    "ModifyIndex": 11
+  }
+]
