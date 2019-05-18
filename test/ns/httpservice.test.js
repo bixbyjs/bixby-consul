@@ -54,12 +54,12 @@ describe('ns/httpservice', function() {
         
       }); // should resolve A record
       
-      it('should resolve SRV record', function(done) {
+      it('should resolve SRV record of service', function(done) {
         _client.catalog = {};
         _client.catalog.service = {};
         _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/beep.json', 'utf8')));
         
-        client.resolve('beep', 'SRV', function(err, addresses) {
+        client.resolve('beep.consul', 'SRV', function(err, addresses) {
           expect(_client.catalog.service.nodes.getCall(0).args[0]).to.equal('beep');
           
           expect(err).to.be.null;
@@ -68,8 +68,23 @@ describe('ns/httpservice', function() {
           ]);
           done();
         });
+      }); // should resolve SRV record of service
+      
+      it('should resolve SRV record of external service', function(done) {
+        _client.catalog = {};
+        _client.catalog.service = {};
+        _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/learn.json', 'utf8')));
         
-      }); // should resolve SRV record
+        client.resolve('learn.consul', 'SRV', function(err, addresses) {
+          expect(_client.catalog.service.nodes.getCall(0).args[0]).to.equal('learn');
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([
+            { name: 'hashicorp.node.dc1.consul', port: 80 }
+          ]);
+          done();
+        });
+      }); // should resolve SRV record of external service
       
     }); // #resolve
     
