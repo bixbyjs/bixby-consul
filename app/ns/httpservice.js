@@ -1,18 +1,17 @@
-exports = module.exports = function() {
-  var Client = require('../../lib/cataloghttpclient');
+exports = module.exports = function(consul) {
+  var Resolver = require('../../lib/cataloghttpclient');
   
   
   var api = {};
   
-  // TODO: add inferType from URL method
-  
   api.createConnection = function(options, connectListener) {
-    var client = new Client(options.url);
-    //client._creds = creds;
+    // options:
+    // { name: 'localhost', port: 8500, priority: 1, weight: 1 }
     
-    //client.connect(connectListener);
-    return client;
-  }
+    var client = consul.createConnection(options, connectListener);
+    var resolver = new Resolver(client);
+    return resolver;
+  };
   
   return api;
 };
@@ -26,4 +25,5 @@ exports['@name'] = 'consul-catalog-http';
 exports['@port'] = 8500;
 exports['@protocol'] = 'tcp';
 exports['@require'] = [
+  'http://i.bixbyjs.org/consul/http'
 ];

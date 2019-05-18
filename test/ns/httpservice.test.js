@@ -21,21 +21,12 @@ describe('ns/httpservice', function() {
     expect(factory['@protocol']).to.equal('tcp');
   });
   
-  describe('CatalogHTTPClient', function() {
+  describe('CatalogHTTPResolver', function() {
     var _client = sinon.createStubInstance(consul);
-    var ClientStub = sinon.stub().returns(_client);
-    var Client = $require('../../lib/cataloghttpclient',
-      { 'consul': ClientStub }
-    );
     
     
     describe('#resolve', function() {
-      var client = new Client();
-      
-      //before(function(done) {
-        //sinon.stub(client._creds, 'get').yieldsAsync(null, { username: 'wvaTP5EkEjKxGyLAIzUnsnG6uhyRUTkX', password: 'keyboard cat' });
-        //client.connect(done);
-      //});
+      var client = new Client(_client);
       
       it('should resolve A record of node', function(done) {
         _client.catalog = {};

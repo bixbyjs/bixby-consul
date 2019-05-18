@@ -18,6 +18,7 @@
   "assembly": {
     "namespace": "opt/consul",
     "components": [
+      "httpservice",
       "ns/dnsservice",
       "ns/httpservice"
     ]
