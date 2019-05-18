@@ -17,6 +17,8 @@ describe('ns/httpservice', function() {
     expect(factory['@singleton']).to.equal(true);
     expect(factory['@implements']).to.deep.equal([ 'http://i.bixbyjs.org/IService', 'http://i.bixbyjs.org/ns/INameService' ]);
     expect(factory['@name']).to.equal('consul-catalog-http');
+    expect(factory['@port']).to.equal(8500);
+    expect(factory['@protocol']).to.equal('tcp');
   });
   
   describe('CatalogHTTPClient', function() {
