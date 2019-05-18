@@ -1,5 +1,5 @@
 exports = module.exports = function(consul) {
-  var Resolver = require('../../lib/cataloghttpclient');
+  var Resolver = require('../../lib/httpresolver');
   
   
   var api = {};

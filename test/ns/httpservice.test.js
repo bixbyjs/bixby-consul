@@ -2,7 +2,7 @@ var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
 var factory = require('../../app/ns/httpservice');
-var Client = require('../../lib/cataloghttpclient');
+var Resolver = require('../../lib/httpresolver');
 var consul = require('consul');
 var fs = require('fs');
 
@@ -21,12 +21,12 @@ describe('ns/httpservice', function() {
     expect(factory['@protocol']).to.equal('tcp');
   });
   
-  describe('CatalogHTTPResolver', function() {
+  describe('ConsulHTTPResolver', function() {
     var _client = sinon.createStubInstance(consul);
     
     
     describe('#resolve', function() {
-      var client = new Client(_client);
+      var client = new Resolver(_client);
       
       it('should resolve A record of node', function(done) {
         _client.catalog = {};
