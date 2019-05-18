@@ -8,7 +8,9 @@ exports = module.exports = function(consul) {
     // options:
     // { name: 'localhost', port: 8500, priority: 1, weight: 1 }
     
-    var client = consul.createConnection(options, connectListener);
+    var client = consul.createConnection(options, function() {
+      if (connectListener) { connectListener.apply(resolver); }
+    });
     var resolver = new Resolver(client);
     return resolver;
   };

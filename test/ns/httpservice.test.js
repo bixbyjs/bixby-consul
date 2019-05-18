@@ -21,6 +21,49 @@ describe('ns/httpservice', function() {
     expect(factory['@protocol']).to.equal('tcp');
   });
   
+  describe('API', function() {
+    var _consul = { createConnection: function(){} };
+    var ResolverStub = sinon.stub().returns(sinon.createStubInstance(Resolver));
+    var api = $require('../../app/ns/httpservice',
+      { '../../lib/httpresolver': ResolverStub }
+    )(_consul);
+    
+    
+    describe('.createConnection', function() {
+      beforeEach(function() {
+        sinon.stub(_consul, 'createConnection').returns({ type: 'consul' }).yieldsAsync();
+      });
+      
+      afterEach(function() {
+        ResolverStub.resetHistory();
+      });
+      
+      
+      it('should construct resolver', function() {
+        var resolver = api.createConnection({ name: 'consul.example.com', port: 8500 });
+        
+        expect(_consul.createConnection).to.have.been.calledOnceWith({ name: 'consul.example.com', port: 8500 });
+        expect(ResolverStub).to.have.been.calledOnce.and.calledWithNew;
+        expect(ResolverStub.getCall(0).args[0]).to.deep.equal({ type: 'consul' });
+        expect(resolver).to.be.an.instanceof(Resolver);
+      }); // should construct resolver
+      
+      it('should construct resolver and invoke callback', function(done) {
+        var resolver = api.createConnection({ name: 'consul.example.com', port: 8500 }, function() {
+          expect(this).to.be.an.instanceof(Resolver);
+          done();
+        });
+        
+        expect(_consul.createConnection).to.have.been.calledOnceWith({ name: 'consul.example.com', port: 8500 });
+        expect(ResolverStub).to.have.been.calledOnce.and.calledWithNew;
+        expect(ResolverStub.getCall(0).args[0]).to.deep.equal({ type: 'consul' });
+        expect(resolver).to.be.an.instanceof(Resolver);
+      }); // should construct resolver and invoke callback
+      
+    }); // .createConnection
+    
+  }); // API
+  
   describe('ConsulHTTPResolver', function() {
     var _client = sinon.createStubInstance(consul);
     
@@ -122,6 +165,6 @@ describe('ns/httpservice', function() {
       
     }); // #resolve
     
-  });
+  }); // ConsulHTTPResolver
   
 });
