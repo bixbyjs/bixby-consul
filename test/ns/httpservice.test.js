@@ -37,13 +37,13 @@ describe('ns/httpservice', function() {
         //client.connect(done);
       //});
       
-      it('should resolve A record', function(done) {
+      it('should resolve A record of node', function(done) {
         _client.catalog = {};
         _client.catalog.node = {};
         _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/node1.json', 'utf8')));
         
-        client.resolve('node1', 'A', function(err, addresses) {
-          expect(_client.catalog.node.services.getCall(0).args[0]).to.equal('node1');
+        client.resolve('node1.node.consul', 'A', function(err, addresses) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1' });
           
           expect(err).to.be.null;
           expect(addresses).to.deep.equal([
@@ -51,8 +51,51 @@ describe('ns/httpservice', function() {
           ]);
           done();
         });
+      }); // should resolve A record of node
+      
+      it('should resolve A record of node in datacenter', function(done) {
+        _client.catalog = {};
+        _client.catalog.node = {};
+        _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/node1.json', 'utf8')));
         
-      }); // should resolve A record
+        client.resolve('node1.node.dc1.consul', 'A', function(err, addresses) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1', dc: 'dc1' });
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([
+            '127.0.0.1'
+          ]);
+          done();
+        });
+      }); // should resolve A record of node in datacenter
+      
+      it('should resolve A record of external node', function(done) {
+        _client.catalog = {};
+        _client.catalog.node = {};
+        _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/hashicorp.json', 'utf8')));
+        
+        client.resolve('hashicorp.node.consul', 'A', function(err, addresses) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp' });
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal([]);
+          done();
+        });
+      }); // should resolve A record of external node
+      
+      it('should resolve CNAME record of external node', function(done) {
+        _client.catalog = {};
+        _client.catalog.node = {};
+        _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/hashicorp.json', 'utf8')));
+        
+        client.resolve('hashicorp.node.consul', 'CNAME', function(err, addresses) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp' });
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
+          done();
+        });
+      }); // should resolve CNAME record of external node
       
       it('should resolve SRV record of service', function(done) {
         _client.catalog = {};
