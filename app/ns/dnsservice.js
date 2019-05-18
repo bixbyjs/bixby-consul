@@ -20,7 +20,12 @@ exports = module.exports = function() {
 };
 
 exports['@singleton'] = true;
-exports['@implements'] = 'http://i.bixbyjs.org/IService';
+exports['@implements'] = [
+  'http://i.bixbyjs.org/IService',
+  'http://i.bixbyjs.org/ns/INameService'
+];
 exports['@name'] = 'consul-dns';
+exports['@port'] = 8600;
+exports['@protocol'] = 'udp';
 exports['@require'] = [
 ];
