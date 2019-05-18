@@ -7,9 +7,7 @@ exports = module.exports = function() {
   // TODO: add inferType from URL method
   
   api.createConnection = function(options, connectListener) {
-    console.log('CREATE CONSUL DNS CLIENT!');
-    
-    var client = new Resolver(options.url);
+    var client = new Resolver();
     //client._creds = creds;
     
     //client.connect(connectListener);

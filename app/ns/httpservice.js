@@ -7,8 +7,6 @@ exports = module.exports = function() {
   // TODO: add inferType from URL method
   
   api.createConnection = function(options, connectListener) {
-    console.log('CREATE CONSUL CLIENT!');
-    
     var client = new Client(options.url);
     //client._creds = creds;
     
