@@ -1,4 +1,4 @@
-exports = module.exports = function(keyring) {
+exports = module.exports = function() {
   var consul = require('consul');
   
   
@@ -25,6 +25,4 @@ exports['@implements'] = [
 exports['@name'] = 'consul-http';
 exports['@port'] = 8500;
 exports['@protocol'] = 'tcp';
-exports['@require'] = [
-  'http://i.bixbyjs.org/security/CredentialsStore'
-];
+exports['@require'] = [];
