@@ -23,6 +23,8 @@ exports['@implements'] = [
   'http://i.bixbyjs.org/IService'
 ];
 exports['@name'] = 'consul-http';
+exports['@port'] = 8500;
+exports['@protocol'] = 'tcp';
 exports['@require'] = [
   'http://i.bixbyjs.org/security/CredentialsStore'
 ];
