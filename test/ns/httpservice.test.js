@@ -131,6 +131,20 @@ describe('ns/httpservice', function() {
         });
       }); // should resolve CNAME record of external node
       
+      it('should resolve CNAME record of external node in datacenter', function(done) {
+        _client.catalog = {};
+        _client.catalog.node = {};
+        _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/hashicorp.json', 'utf8')));
+        
+        client.resolve('hashicorp.node.dc1.consul', 'CNAME', function(err, addresses) {
+          expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp', dc: 'dc1' });
+          
+          expect(err).to.be.null;
+          expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
+          done();
+        });
+      }); // should resolve CNAME record of external node in datacenter
+      
       it('should resolve SRV record of service', function(done) {
         _client.catalog = {};
         _client.catalog.service = {};
