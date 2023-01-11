@@ -11,7 +11,7 @@ exports = module.exports = function(consul, location) {
 };
 
 exports['@singleton'] = true;
-exports['@implements'] = 'http://i.bixbyjs.org/ns/INameService';
+exports['@implements'] = 'module:bixby-ns.Resolver';
 exports['@service'] = 'consul-catalog-http';
 exports['@protocol'] = 'tcp';
 exports['@port'] = 8500;

@@ -15,7 +15,7 @@ describe('ns/httpservice', function() {
   
   it('should be annotated', function() {
     expect(factory['@singleton']).to.equal(true);
-    expect(factory['@implements']).to.deep.equal('http://i.bixbyjs.org/ns/INameService');
+    expect(factory['@implements']).to.deep.equal('module:bixby-ns.Resolver');
     expect(factory['@service']).to.equal('consul-catalog-http');
     expect(factory['@port']).to.equal(8500);
     expect(factory['@protocol']).to.equal('tcp');
