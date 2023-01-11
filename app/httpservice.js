@@ -20,7 +20,6 @@ exports = module.exports = function() {
 exports['@singleton'] = true;
 exports['@implements'] = [
   'http://i.bixbyjs.org/consul/http',
-  'http://i.bixbyjs.org/IService'
 ];
 exports['@name'] = 'consul-http';
 exports['@port'] = 8500;

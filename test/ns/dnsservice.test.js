@@ -15,7 +15,7 @@ describe('ns/dnsservice', function() {
   
   it('should be annotated', function() {
     expect(factory['@singleton']).to.equal(true);
-    expect(factory['@implements']).to.deep.equal([ 'http://i.bixbyjs.org/IService', 'http://i.bixbyjs.org/ns/INameService' ]);
+    expect(factory['@implements']).to.deep.equal([ 'x-http://i.bixbyjs.org/ns/INameService' ]);
     expect(factory['@name']).to.equal('consul-dns');
     expect(factory['@port']).to.equal(8600);
     expect(factory['@protocol']).to.equal('udp');
