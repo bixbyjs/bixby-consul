@@ -3,6 +3,8 @@
 https://developer.hashicorp.com/consul/tutorials/get-started-vms/virtual-machine-gs-deploy
 
 $ ./consul agent -bind=127.0.0.1 -data-dir=./var
+$ ./consul agent -bind=127.0.0.1 -data-dir=./var -server
+$ ./consul agent -bind=127.0.0.1 -data-dir=./var -server -bootstrap
 
 $ consul members
 
