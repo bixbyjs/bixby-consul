@@ -20,7 +20,7 @@
     "components": [
       "httpservice",
       "ns/dnsservice",
-      "ns/httpservice"
+      "ns/httpresolver"
     ]
   },
   "dependencies": {

@@ -15,7 +15,7 @@ describe('bixby-consul', function() {
       expect(json.assembly.components).to.have.length(3);
       expect(json.assembly.components).to.include('httpservice');
       expect(json.assembly.components).to.include('ns/dnsservice');
-      expect(json.assembly.components).to.include('ns/httpservice');
+      expect(json.assembly.components).to.include('ns/httpresolver');
     });
   });
   
