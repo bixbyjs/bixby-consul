@@ -20,13 +20,15 @@
     "components": [
       "httpservice",
       "ns/dnsservice",
-      "ns/httpresolver"
+      "ns/httpresolver",
+      "ns/httpupdater"
     ]
   },
   "dependencies": {
     "consul": "^0.40.0",
     "filter-obj": "^1.1.0",
-    "map-obj": "^3.1.0"
+    "map-obj": "^3.1.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "make-node": "^0.3.0",
