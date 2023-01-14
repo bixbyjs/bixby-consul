@@ -12,10 +12,11 @@ describe('bixby-consul', function() {
     it('should have assembly metadata', function() {
       expect(json.assembly.namespace).to.equal('opt/consul');
       
-      expect(json.assembly.components).to.have.length(3);
+      expect(json.assembly.components).to.have.length(4);
       expect(json.assembly.components).to.include('httpservice');
       expect(json.assembly.components).to.include('ns/dnsservice');
       expect(json.assembly.components).to.include('ns/httpresolver');
+      expect(json.assembly.components).to.include('ns/httpupdater');
     });
   });
   
