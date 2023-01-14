@@ -5,7 +5,7 @@ var consul = require('consul');
 var fs = require('fs');
 
 
-describe('ConsulHTTPResolver', function() {
+describe('HTTPResolver', function() {
   var _client = sinon.createStubInstance(consul);
   
   describe('#resolve', function() {
@@ -85,7 +85,7 @@ describe('ConsulHTTPResolver', function() {
       });
     }); // should resolve CNAME record of external node in datacenter
     
-    it('should resolve SRV record of service', function(done) {
+    it('should resolve SRV record of internal service', function(done) {
       _client.catalog = {};
       _client.catalog.service = {};
       _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/beep.json', 'utf8')));
@@ -99,7 +99,7 @@ describe('ConsulHTTPResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of service
+    }); // should resolve SRV record of internal service
     
     it('should resolve SRV record of external service', function(done) {
       _client.catalog = {};
