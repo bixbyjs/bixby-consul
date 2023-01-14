@@ -88,24 +88,10 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve CNAME record of external node
       
-      it('should resolve SRV record of service', function(done) {
-        _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
-        
-        resolver.resolve('beep.consul', 'SRV', function(err, addresses) {
-          expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('beep.service.consul');
-          
-          expect(err).to.be.null;
-          expect(addresses).to.deep.equal([
-            { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 }
-          ]);
-          done();
-        });
-      }); // should resolve SRV record of service
-      
       it('should resolve SRV record of external service', function(done) {
         _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'hashicorp.node.dc1.consul', port: 80, priority: 1, weight: 1 } ]);
         
-        resolver.resolve('learn.consul', 'SRV', function(err, addresses) {
+        resolver.resolve('_learn._tcp.consul', 'SRV', function(err, addresses) {
           expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('learn.service.consul');
           
           expect(err).to.be.null;
