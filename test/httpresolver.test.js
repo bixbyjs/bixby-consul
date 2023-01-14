@@ -5,7 +5,7 @@ var consul = require('consul');
 var fs = require('fs');
 
 
-describe.only('ConsulHTTPResolver', function() {
+describe('ConsulHTTPResolver', function() {
   var _client = sinon.createStubInstance(consul);
   
   describe('#resolve', function() {
