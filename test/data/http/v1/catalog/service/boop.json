@@ -1,0 +1,43 @@
+[
+  {
+    "ID": "0a6e612c-e0b5-6386-6be0-9ee870df2871",
+    "Node": "node1",
+    "Address": "127.0.0.1",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "127.0.0.1",
+      "lan_ipv4": "127.0.0.1",
+      "wan": "127.0.0.1",
+      "wan_ipv4": "127.0.0.1"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceKind": "",
+    "ServiceID": "boop",
+    "ServiceName": "boop",
+    "ServiceTags": [
+    ],
+    "ServiceAddress": "example.local",
+    "ServiceWeights": {
+      "Passing": 1,
+      "Warning": 1
+    },
+    "ServiceMeta": {
+    },
+    "ServicePort": 800,
+    "ServiceSocketPath": "",
+    "ServiceEnableTagOverride": false,
+    "ServiceProxy": {
+      "Mode": "",
+      "MeshGateway": {
+      },
+      "Expose": {
+      }
+    },
+    "ServiceConnect": {
+    },
+    "CreateIndex": 20,
+    "ModifyIndex": 20
+  }
+]
