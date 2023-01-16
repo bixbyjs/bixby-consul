@@ -111,7 +111,7 @@ describe('HTTPResolver', function() {
         
         expect(err).to.be.null;
         expect(addresses).to.deep.equal([
-          { name: 'example.local', port: 800 }
+          { name: 'node1.example.com', port: 800 }
         ]);
         done();
       });

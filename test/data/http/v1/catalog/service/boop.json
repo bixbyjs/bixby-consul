@@ -18,7 +18,7 @@
     "ServiceName": "boop",
     "ServiceTags": [
     ],
-    "ServiceAddress": "example.local",
+    "ServiceAddress": "node1.example.com",
     "ServiceWeights": {
       "Passing": 1,
       "Warning": 1
