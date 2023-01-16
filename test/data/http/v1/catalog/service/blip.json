@@ -1,0 +1,84 @@
+[
+  {
+    "ID": "b40c4865-dfb0-ea30-60f1-1bdda4e5944f",
+    "Node": "node1",
+    "Address": "127.0.0.1",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "127.0.0.1",
+      "lan_ipv4": "127.0.0.1",
+      "wan": "127.0.0.1",
+      "wan_ipv4": "127.0.0.1"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceKind": "",
+    "ServiceID": "53d58496-de1a-407a-9279-19ff653fdc9e",
+    "ServiceName": "blip",
+    "ServiceTags": [
+    ],
+    "ServiceAddress": "node1.test",
+    "ServiceWeights": {
+      "Passing": 1,
+      "Warning": 1
+    },
+    "ServiceMeta": {
+    },
+    "ServicePort": 871,
+    "ServiceSocketPath": "",
+    "ServiceEnableTagOverride": false,
+    "ServiceProxy": {
+      "Mode": "",
+      "MeshGateway": {
+      },
+      "Expose": {
+      }
+    },
+    "ServiceConnect": {
+    },
+    "CreateIndex": 24,
+    "ModifyIndex": 24
+  },
+  {
+    "ID": "b40c4865-dfb0-ea30-60f1-1bdda4e5944f",
+    "Node": "node1",
+    "Address": "127.0.0.1",
+    "Datacenter": "dc1",
+    "TaggedAddresses": {
+      "lan": "127.0.0.1",
+      "lan_ipv4": "127.0.0.1",
+      "wan": "127.0.0.1",
+      "wan_ipv4": "127.0.0.1"
+    },
+    "NodeMeta": {
+      "consul-network-segment": ""
+    },
+    "ServiceKind": "",
+    "ServiceID": "e5a80534-9105-4969-b8e0-859840e67992",
+    "ServiceName": "blip",
+    "ServiceTags": [
+    ],
+    "ServiceAddress": "node1.test",
+    "ServiceWeights": {
+      "Passing": 1,
+      "Warning": 1
+    },
+    "ServiceMeta": {
+    },
+    "ServicePort": 872,
+    "ServiceSocketPath": "",
+    "ServiceEnableTagOverride": false,
+    "ServiceProxy": {
+      "Mode": "",
+      "MeshGateway": {
+      },
+      "Expose": {
+      }
+    },
+    "ServiceConnect": {
+    },
+    "CreateIndex": 28,
+    "ModifyIndex": 28
+  }
+]
