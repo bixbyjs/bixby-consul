@@ -41,10 +41,10 @@ describe('HTTPUpdater', function() {
       _client.agent.service.deregister = sinon.stub().yieldsAsync(null);
       
       var rr = {
-        id: '1'
+        id: '53d58496-de1a-407a-9279-19ff653fdc9e'
       };
       client.deregister('hashicorp.node.dc1.consul', 'SRV', rr, function(err) {
-        expect(_client.agent.service.deregister.getCall(0).args[0]).to.deep.equal('1');
+        expect(_client.agent.service.deregister.getCall(0).args[0]).to.deep.equal('53d58496-de1a-407a-9279-19ff653fdc9e');
         
         expect(err).to.be.null;
         done();
