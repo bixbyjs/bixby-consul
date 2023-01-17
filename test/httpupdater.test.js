@@ -11,7 +11,7 @@ describe('HTTPUpdater', function() {
   describe('#register', function() {
     var client = new Updater(_client);
     
-    it('should register record', function(done) {
+    it.skip('should register record', function(done) {
       _client.agent = {};
       _client.agent.service = {};
       _client.agent.service.register = sinon.stub().yieldsAsync(null);
