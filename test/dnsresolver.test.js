@@ -90,6 +90,20 @@ describe('DNSResolver', function() {
       });
     }); // should resolve SRV record of internal service with address
     
+    it('should resolve SRV record of external service', function(done) {
+      _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'learn.hashicorp.com', port: 80, priority: 1, weight: 1 } ]);
+      
+      resolver.resolve('_learn._tcp.consul', 'SRV', function(err, addresses) {
+        expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('learn.service.consul');
+        
+        expect(err).to.be.null;
+        expect(addresses).to.deep.equal([
+          { name: 'learn.hashicorp.com', port: 80, priority: 1, weight: 1 }
+        ]);
+        done();
+      });
+    }); // should resolve SRV record of external service
+    
   });
   
 });

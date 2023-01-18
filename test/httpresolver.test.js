@@ -139,7 +139,7 @@ describe('HTTPResolver', function() {
       _client.catalog.service = {};
       _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/learn.json', 'utf8')));
       
-      client.resolve('learn.consul', 'SRV', function(err, addresses) {
+      client.resolve('_learn._tcp.consul', 'SRV', function(err, addresses) {
         expect(_client.catalog.service.nodes.getCall(0).args[0]).to.equal('learn');
         
         expect(err).to.be.null;
