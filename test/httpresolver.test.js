@@ -144,8 +144,7 @@ describe('HTTPResolver', function() {
         
         expect(err).to.be.null;
         expect(addresses).to.deep.equal([
-          // FIXME: This should be learn.hashicorp.com
-          { name: 'hashicorp.node.dc1.consul', port: 80 }
+          { name: 'learn.hashicorp.com', port: 80 }
         ]);
         done();
       });
