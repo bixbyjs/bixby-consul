@@ -56,6 +56,22 @@ describe('DNSResolver', function() {
       });
     }); // should resolve A record of external node
     
+    it('should resolve CNAME record of external node', function(done) {
+      _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
+        { value: 'learn.hashicorp.com', type: 'CNAME' },
+        { entries: [ 'external-node=true' ], type: 'TXT' },
+        { entries: [ 'external-probe=true' ], type: 'TXT' }
+      ]);
+      
+      resolver.resolve('hashicorp.node.consul', 'CNAME', function(err, addresses) {
+        expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+        
+        expect(err).to.be.null;
+        expect(addresses).to.deep.equal(['learn.hashicorp.com']);
+        done();
+      });
+    }); // should resolve CNAME record of external node
+    
     it('should resolve SRV record of internal service', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
       
