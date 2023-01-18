@@ -66,7 +66,7 @@ describe('HTTPResolver', function() {
         expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp' });
         
         expect(err).to.be.null;
-        expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
+        expect(addresses).to.deep.equal(['learn.hashicorp.com']);
         done();
       });
     }); // should resolve CNAME record of external node
@@ -80,7 +80,7 @@ describe('HTTPResolver', function() {
         expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp', dc: 'dc1' });
         
         expect(err).to.be.null;
-        expect(addresses).to.deep.equal(['learn.hashicorp.com/consul/']);
+        expect(addresses).to.deep.equal(['learn.hashicorp.com']);
         done();
       });
     }); // should resolve CNAME record of external node in datacenter
@@ -144,6 +144,7 @@ describe('HTTPResolver', function() {
         
         expect(err).to.be.null;
         expect(addresses).to.deep.equal([
+          // FIXME: This should be learn.hashicorp.com
           { name: 'hashicorp.node.dc1.consul', port: 80 }
         ]);
         done();

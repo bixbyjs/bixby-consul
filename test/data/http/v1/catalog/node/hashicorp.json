@@ -2,7 +2,7 @@
   "Node": {
     "ID": "",
     "Node": "hashicorp",
-    "Address": "learn.hashicorp.com/consul/",
+    "Address": "learn.hashicorp.com",
     "Datacenter": "dc1",
     "TaggedAddresses": null,
     "Meta": {

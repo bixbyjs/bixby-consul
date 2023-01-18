@@ -44,6 +44,18 @@ describe('DNSResolver', function() {
       });
     }); // should resolve A record of node in datacenter
     
+    it('should resolve A record of external node', function(done) {
+      _resolver.resolve4 = sinon.stub().yieldsAsync(null, []);
+      
+      resolver.resolve('hashicorp.node.consul', 'A', function(err, addresses) {
+        expect(_resolver.resolve4.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+        
+        expect(err).to.be.null;
+        expect(addresses).to.deep.equal([]);
+        done();
+      });
+    }); // should resolve A record of external node
+    
     it('should resolve SRV record of internal service', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
       

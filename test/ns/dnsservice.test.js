@@ -32,17 +32,7 @@ describe('ns/dnsservice', function() {
     describe('#resolve', function() {
       var resolver = new Resolver();
       
-      it('should resolve A record of external node', function(done) {
-        _resolver.resolve4 = sinon.stub().yieldsAsync(null, []);
-        
-        resolver.resolve('hashicorp.node.consul', 'A', function(err, addresses) {
-          expect(_resolver.resolve4.getCall(0).args[0]).to.equal('hashicorp.node.consul');
-          
-          expect(err).to.be.null;
-          expect(addresses).to.deep.equal([]);
-          done();
-        });
-      }); // should resolve A record of external node
+      
       
       it('should resolve CNAME record of external node', function(done) {
         _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
