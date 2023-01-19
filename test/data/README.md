@@ -1,6 +1,6 @@
 - http/v1/catalog/service/learn.json
 
-  This file contains the response from the [/catalog/service/:service_name](https://developer.hashicorp.com/consul/api-docs/catalog#list-nodes-for-service)
+  This file contains the response from the [`/catalog/service/:service_name`](https://developer.hashicorp.com/consul/api-docs/catalog#list-nodes-for-service)
   endpoint, after [registering an external service](https://developer.hashicorp.com/consul/tutorials/developer-discovery/service-registration-external-services#register-an-external-service-with-a-health-check).
 
 - http/v1/catalog/register/hashicorp.json
@@ -12,4 +12,6 @@
   
   This service can be registered with Consul from the command line:
 
+  ```bash
   $ curl --request PUT --data @test/data/http/v1/catalog/register/hashicorp.json localhost:8500/v1/catalog/register
+  ```
