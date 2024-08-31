@@ -1,5 +1,10 @@
 # bixby-consul
 
+Consul components for the Bixby framework.
+
+[Consul](https://www.consul.io) is a service networking platform that securely
+connects applications.
+
 <div align="right">
   <sup>Developed by <a href="#authors">Jared Hanson</a>.</sub>
 </div>
