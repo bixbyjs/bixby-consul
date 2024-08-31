@@ -24,6 +24,9 @@
       "ns/httpupdater"
     ]
   },
+  "directories": {
+    "com": "com"
+  },
   "dependencies": {
     "consul": "^0.40.0",
     "filter-obj": "^1.1.0",

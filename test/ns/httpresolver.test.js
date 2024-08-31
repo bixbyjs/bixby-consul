@@ -1,7 +1,7 @@
 var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var factory = require('../../app/ns/httpresolver');
+var factory = require('../../com/ns/httpresolver');
 var Resolver = require('../../lib/httpresolver');
 var consul = require('consul');
 var fs = require('fs');
@@ -22,7 +22,7 @@ describe('ns/httpresolver', function() {
   describe.skip('API', function() {
     var _consul = { createConnection: function(){} };
     var ResolverStub = sinon.stub().returns(sinon.createStubInstance(Resolver));
-    var api = $require('../../app/ns/httpresolver',
+    var api = $require('../../com/ns/httpresolver',
       { '../../lib/httpresolver': ResolverStub }
     )(_consul);
     

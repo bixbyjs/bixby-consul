@@ -1,7 +1,7 @@
 var $require = require('proxyquire');
 var expect = require('chai').expect;
 var sinon = require('sinon');
-var factory = require('../app/httpservice');
+var factory = require('../com/httpservice');
 var consul = require('consul');
 
 
@@ -22,7 +22,7 @@ describe('httpservice', function() {
   describe('API', function() {
     var _client = sinon.createStubInstance(Object);
     var consulStub = sinon.stub().returns(_client);
-    var api = $require('../app/httpservice',
+    var api = $require('../com/httpservice',
       { 'consul': consulStub }
     )();
     
