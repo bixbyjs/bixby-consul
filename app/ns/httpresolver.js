@@ -8,8 +8,6 @@ exports = module.exports = function(consul, location) {
   var client = consul.createConnection(location);
   var resolver = new Resolver(client);
   
-  
-  console.log('*** DOING CONSUL OPERATIONS *****');
   /*
   
   console.log('MEMBERS');
@@ -93,11 +91,8 @@ exports = module.exports = function(consul, location) {
 };
 
 exports['@singleton'] = true;
-exports['@implements'] = 'module:bixby-ns.Resolver';
-exports['@service'] = 'consul-catalog-http';
-exports['@protocol'] = 'tcp';
-exports['@port'] = 8500;
+exports['@implements'] = 'module:bixby-sd.ResolverService';
 exports['@require'] = [
   'http://i.bixbyjs.org/consul/http',
-  '$location'
+  '$srv[consul domain=localhost]'
 ];
