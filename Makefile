@@ -1,7 +1,7 @@
 include node_modules/make-node/main.mk
 
 
-SOURCES = lib/*.js lib/**/*.js
+SOURCES = lib/*.js
 TESTS = test/*.test.js test/**/*.test.js
 
 LCOVFILE = ./reports/coverage/lcov.info
@@ -20,6 +20,9 @@ clean: clean-docs clean-cov
 
 clobber: clean
 	-rm -r node_modules
+
+html:
+	jsdoc -c etc/jsdoc.json -d ./doc $(SOURCES)
 
 
 .PHONY: clean clobber
