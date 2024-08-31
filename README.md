@@ -3,7 +3,10 @@
 Consul components for the Bixby framework.
 
 [Consul](https://www.consul.io) is a service networking platform that securely
-connects applications.
+connects applications.  [Originally designed](https://developer.hashicorp.com/consul/docs/consul-vs-other/dns-tools-compare)
+as a service registry to facilitate [service discovery](https://www.consul.io/use-cases/discover-services),
+it also provides [service mesh](https://www.consul.io/use-cases/multi-platform-service-mesh)
+capabilities, including secure communication and access control.
 
 <div align="right">
   <sup>Developed by <a href="#authors">Jared Hanson</a>.</sub>
