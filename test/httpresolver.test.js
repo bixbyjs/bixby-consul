@@ -150,6 +150,6 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve SRV record of external service
     
-  });
+  }); // #resolve
   
 });
