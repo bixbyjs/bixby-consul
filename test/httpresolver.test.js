@@ -85,7 +85,7 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve CNAME record of external node in datacenter
     
-    it('should resolve SRV record of internal service', function(done) {
+    it('should resolve SRV record of service using agent address', function(done) {
       _client.catalog = {};
       _client.catalog.service = {};
       _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/beep.json', 'utf8')));
@@ -99,9 +99,9 @@ describe('HTTPResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of internal service
+    }); // should resolve SRV record of service using agent address
     
-    it('should resolve SRV record of internal service with address', function(done) {
+    it('should resolve SRV record of service with address', function(done) {
       _client.catalog = {};
       _client.catalog.service = {};
       _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/service/boop.json', 'utf8')));
@@ -115,7 +115,7 @@ describe('HTTPResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of internal service with address
+    }); // should resolve SRV record of service with address
     
     it('should resolve SRV record of internal service running on multiple ports with address', function(done) {
       _client.catalog = {};
