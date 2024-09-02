@@ -72,7 +72,7 @@ describe('DNSResolver', function() {
       });
     }); // should resolve CNAME record of external node
     
-    it('should resolve SRV record of internal service', function(done) {
+    it('should resolve SRV record of service using agent address', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.node.dc1.consul', port: 833, priority: 1, weight: 1 } ]);
       
       resolver.resolve('_beep._tcp.consul', 'SRV', function(err, addresses) {
@@ -84,9 +84,9 @@ describe('DNSResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of internal service
+    }); // should resolve SRV record of service using agent address
     
-    it('should resolve SRV record of internal service with address', function(done) {
+    it('should resolve SRV record of service', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.test', port: 800, priority: 1, weight: 1 } ]);
       
       resolver.resolve('_boop._tcp.consul', 'SRV', function(err, addresses) {
@@ -98,9 +98,9 @@ describe('DNSResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of internal service with address
+    }); // should resolve SRV record of service
     
-    it('should resolve SRV record of internal service running on multiple ports with address', function(done) {
+    it('should resolve SRV record of service running on multiple ports', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [
         { name: 'node1.test', port: 872, priority: 1, weight: 1 },
         { name: 'node1.test', port: 871, priority: 1, weight: 1 }
@@ -116,7 +116,7 @@ describe('DNSResolver', function() {
         ]);
         done();
       });
-    }); // should resolve SRV record of internal service with address
+    }); // should resolve SRV record of service running on multiple ports
     
     it('should resolve SRV record of external service', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'learn.hashicorp.com', port: 80, priority: 1, weight: 1 } ]);
