@@ -56,6 +56,24 @@ describe('DNSResolver', function() {
       });
     }); // should resolve empty list of A records for external node
     
+    it('should error resolving A record when encountering resolver error', function(done) {
+      var error = new Error('queryA EREFUSED node1.node.consulx');
+      error.code = 'EREFUSED';
+      error.syscall = 'queryA';
+      error.hostname = 'node1.node.consulx';
+      
+      _resolver.resolve4 = sinon.stub().yieldsAsync(error);
+      
+      resolver.resolve('node1.node.consulx', 'A', function(err, addresses) {
+        expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node1.node.consulx');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err).to.equal(error);
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should error resolving A record when encountering resolver error
+    
     it('should resolve CNAME record of external node', function(done) {
       _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
         { value: 'learn.hashicorp.com', type: 'CNAME' },
