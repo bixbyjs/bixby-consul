@@ -57,7 +57,7 @@ describe('DNSResolver', function() {
     }); // should resolve empty list of A records for external node
     
     it('should not resolve A record when node not found', function(done) {
-      var error = new Error('queryA EREFUSED node0.node.consul');
+      var error = new Error('queryA ENOTFOUND node0.node.consul');
       error.code = 'ENOTFOUND';
       error.syscall = 'queryA';
       error.hostname = 'node0.node.consul';
