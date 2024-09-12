@@ -108,6 +108,42 @@ describe('DNSResolver', function() {
       });
     }); // should resolve CNAME record of external node
     
+    it('should not resolve CNAME record when canonical name not set', function(done) {
+      _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
+        { address: '127.0.0.1', ttl: 0, type: 'A' },
+        { entries: [ 'consul-network-segment=' ], type: 'TXT' },
+        { entries: [ 'consul-version=1.19.2' ], type: 'TXT' }
+      ]);
+      
+      resolver.resolve('node1.node.consul', 'CNAME', function(err, addresses) {
+        expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('node1.node.consul');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('queryCname ENODATA node1.node.consul');
+        expect(err.code).to.equal('ENODATA');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve CNAME record when canonical name not set
+    
+    it('should error resolving CNAME record when encountering resolver error', function(done) {
+      var error = new Error('queryAny EREFUSED hashicorp.node.consulx');
+      error.code = 'EREFUSED';
+      error.syscall = 'queryAny';
+      error.hostname = 'hashicorp.node.consulx';
+      
+      _resolver.resolveAny = sinon.stub().yieldsAsync(error);
+      
+      resolver.resolve('hashicorp.node.consulx', 'CNAME', function(err, addresses) {
+        expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('hashicorp.node.consulx');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err).to.equal(error);
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should error resolving A record when encountering resolver error
+    
     it('should resolve SRV record of service', function(done) {
       _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.test', port: 800, priority: 1, weight: 1 } ]);
       
