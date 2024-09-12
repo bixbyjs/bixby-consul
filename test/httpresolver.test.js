@@ -73,6 +73,21 @@ describe('HTTPResolver', function() {
       });
     }); // should not resolve A record when node not found
     
+    it('should error resolving A record when encountering client error', function(done) {
+      _client.catalog = {};
+      _client.catalog.node = {};
+      _client.catalog.node.services = sinon.stub().yieldsAsync(new Error('something went wrong'));
+      
+      client.resolve('node1.node.consul', 'A', function(err, addresses) {
+        expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1' });
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should error resolving SRV record when encountering client error
+    
     it('should resolve CNAME record of external node', function(done) {
       _client.catalog = {};
       _client.catalog.node = {};
