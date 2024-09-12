@@ -44,7 +44,7 @@ describe('DNSResolver', function() {
       });
     }); // should resolve A record of node in datacenter
     
-    it('should resolve A record of external node', function(done) {
+    it('should resolve empty list of A records for external node', function(done) {
       _resolver.resolve4 = sinon.stub().yieldsAsync(null, []);
       
       resolver.resolve('hashicorp.node.consul', 'A', function(err, addresses) {
@@ -54,7 +54,7 @@ describe('DNSResolver', function() {
         expect(addresses).to.deep.equal([]);
         done();
       });
-    }); // should resolve A record of external node
+    }); // should resolve empty list of A records for external node
     
     it('should resolve CNAME record of external node', function(done) {
       _resolver.resolveAny = sinon.stub().yieldsAsync(null, [
