@@ -132,6 +132,6 @@ describe('DNSResolver', function() {
       });
     }); // should resolve SRV record of external service
     
-  });
+  });  // #resolve
   
 });
