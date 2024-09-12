@@ -132,6 +132,20 @@ describe('DNSResolver', function() {
       });
     }); // should resolve SRV record of external service
     
+    it('should resolve SRV record of service within datacenter', function(done) {
+      _resolver.resolveSrv = sinon.stub().yieldsAsync(null, [ { name: 'node1.test', port: 800, priority: 1, weight: 1 } ]);
+      
+      resolver.resolve('_boop._tcp.dc1.consul', 'SRV', function(err, addresses) {
+        expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('boop.service.dc1.consul');
+        
+        expect(err).to.be.null;
+        expect(addresses).to.deep.equal([
+          { name: 'node1.test', port: 800, priority: 1, weight: 1 }
+        ]);
+        done();
+      });
+    }); // should resolve SRV record of service within datacenter
+    
     it('should not resolve SRV record when service not found', function(done) {
       var error = new Error('querySrv ENOTFOUND foop.service.consul');
       error.code = 'ENOTFOUND';
