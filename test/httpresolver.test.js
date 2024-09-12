@@ -183,6 +183,21 @@ describe('HTTPResolver', function() {
       });
     }); // should not resolve SRV record when service not found
     
+    it('should error resolving SRV record when encountering client error', function(done) {
+      _client.catalog = {};
+      _client.catalog.service = {};
+      _client.catalog.service.nodes = sinon.stub().yieldsAsync(new Error('something went wrong'));
+      
+      client.resolve('_foop._tcp.consul', 'SRV', function(err, addresses) {
+        expect(_client.catalog.service.nodes).to.be.calledOnceWith('foop');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should error resolving SRV record when encountering client error
+    
   }); // #resolve
   
 });
