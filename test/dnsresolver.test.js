@@ -56,6 +56,24 @@ describe('DNSResolver', function() {
       });
     }); // should resolve empty list of A records for external node
     
+    it('should not resolve A record when node not found', function(done) {
+      var error = new Error('queryA EREFUSED node0.node.consul');
+      error.code = 'ENOTFOUND';
+      error.syscall = 'queryA';
+      error.hostname = 'node0.node.consul';
+      
+      _resolver.resolve4 = sinon.stub().yieldsAsync(error);
+      
+      resolver.resolve('node0.node.consul', 'A', function(err, addresses) {
+        expect(_resolver.resolve4.getCall(0).args[0]).to.equal('node0.node.consul');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err).to.equal(error);
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve A record when node not found
+    
     it('should error resolving A record when encountering resolver error', function(done) {
       var error = new Error('queryA EREFUSED node1.node.consulx');
       error.code = 'EREFUSED';

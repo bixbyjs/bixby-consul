@@ -43,7 +43,7 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve A record of node in datacenter
     
-    it('should resolve A record of external node', function(done) {
+    it('should resolve empty list of A records for external node', function(done) {
       _client.catalog = {};
       _client.catalog.node = {};
       _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/hashicorp.json', 'utf8')));
@@ -55,7 +55,7 @@ describe('HTTPResolver', function() {
         expect(addresses).to.deep.equal([]);
         done();
       });
-    }); // should resolve A record of external node
+    }); // should resolve empty list of A records for external node
     
     it('should resolve CNAME record of external node', function(done) {
       _client.catalog = {};
