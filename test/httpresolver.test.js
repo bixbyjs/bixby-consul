@@ -57,6 +57,22 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve empty list of A records for external node
     
+    it('should not resolve A record when node not found', function(done) {
+      _client.catalog = {};
+      _client.catalog.node = {};
+      _client.catalog.node.services = sinon.stub().yieldsAsync(null, null);
+      
+      client.resolve('node1.node.consul', 'A', function(err, addresses) {
+        expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1' });
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('queryA ENOTFOUND node1.node.consul');
+        expect(err.code).to.equal('ENOTFOUND');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve A record when node not found
+    
     it('should resolve CNAME record of external node', function(done) {
       _client.catalog = {};
       _client.catalog.node = {};
