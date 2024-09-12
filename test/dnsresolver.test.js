@@ -132,6 +132,24 @@ describe('DNSResolver', function() {
       });
     }); // should resolve SRV record of external service
     
+    it('should not resolve SRV record when service not found', function(done) {
+      var error = new Error('querySrv ENOTFOUND foop.service.consul');
+      error.code = 'ENOTFOUND';
+      error.syscall = 'querySrv';
+      error.hostname = 'foop.service.consul';
+      
+      _resolver.resolveSrv = sinon.stub().yieldsAsync(error);
+      
+      resolver.resolve('_foop._tcp.consul', 'SRV', function(err, addresses) {
+        expect(_resolver.resolveSrv.getCall(0).args[0]).to.equal('foop.service.consul');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err).to.equal(error);
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve SRV record when service not found
+    
   });  // #resolve
   
 });
