@@ -167,6 +167,22 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve SRV record of external service
     
+    it('should not resolve SRV record when service not found', function(done) {
+      _client.catalog = {};
+      _client.catalog.service = {};
+      _client.catalog.service.nodes = sinon.stub().yieldsAsync(null, []);
+      
+      client.resolve('_foop._tcp.consul', 'SRV', function(err, addresses) {
+        expect(_client.catalog.service.nodes).to.be.calledOnceWith('foop');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('querySrv ENOTFOUND _foop._tcp.consul');
+        expect(err.code).to.equal('ENOTFOUND');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve SRV record when service not found
+    
   }); // #resolve
   
 });
