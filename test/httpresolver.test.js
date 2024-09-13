@@ -132,6 +132,22 @@ describe('HTTPResolver', function() {
       });
     }); // should not resolve CNAME record when canonical name not set
     
+    it('should not resolve CNAME record when node not found', function(done) {
+      _client.catalog = {};
+      _client.catalog.node = {};
+      _client.catalog.node.services = sinon.stub().yieldsAsync(null, null);
+      
+      client.resolve('node1.node.consul', 'CNAME', function(err, addresses) {
+        expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1' });
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('queryCname ENOTFOUND node1.node.consul');
+        expect(err.code).to.equal('ENOTFOUND');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve CNAME record when node not found
+    
     it('should error resolving CNAME record when encountering client error', function(done) {
       _client.catalog = {};
       _client.catalog.node = {};
