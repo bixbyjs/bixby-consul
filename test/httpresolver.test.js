@@ -116,6 +116,22 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve CNAME record of external node in datacenter
     
+    it('should not resolve CNAME record when canonical name not set', function(done) {
+      _client.catalog = {};
+      _client.catalog.node = {};
+      _client.catalog.node.services = sinon.stub().yieldsAsync(null, JSON.parse(fs.readFileSync('test/data/http/v1/catalog/node/node1.json', 'utf8')));
+      
+      client.resolve('node1.node.consul', 'CNAME', function(err, addresses) {
+        expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'node1' });
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('queryCname ENODATA node1.node.consul');
+        expect(err.code).to.equal('ENODATA');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve CNAME record when canonical name not set
+    
     it('should error resolving CNAME record when encountering client error', function(done) {
       _client.catalog = {};
       _client.catalog.node = {};
