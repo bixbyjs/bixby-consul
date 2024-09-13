@@ -255,6 +255,21 @@ describe('DNSResolver', function() {
       });
     }); // should not resolve SRV record when service not found
     
+    it('should resolve TXT record of external node', function(done) {
+      _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'external-node=true' ], [ 'external-probe=true' ] ]);
+      
+      resolver.resolve('hashicorp.node.consul', 'TXT', function(err, addresses) {
+        expect(_resolver.resolveTxt.getCall(0).args[0]).to.equal('hashicorp.node.consul');
+        
+        expect(err).to.be.null;
+        expect(addresses).to.deep.equal([
+          [ 'external-node=true' ],
+          [ 'external-probe=true' ]
+        ]);
+        done();
+      });
+    }); // should resolve TXT record of external node
+    
   });  // #resolve
   
 });
