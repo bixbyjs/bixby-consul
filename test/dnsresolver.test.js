@@ -126,6 +126,25 @@ describe('DNSResolver', function() {
       });
     }); // should not resolve CNAME record when canonical name not set
     
+    it('should not resolve CNAME record when node not found', function(done) {
+      var error = new Error('queryAny ENOTFOUND node1.node.consul');
+      error.code = 'ENOTFOUND';
+      error.syscall = 'queryAny';
+      error.hostname = 'node1.node.consul';
+      
+      _resolver.resolveAny = sinon.stub().yieldsAsync(error);
+      
+      resolver.resolve('node1.node.consul', 'CNAME', function(err, addresses) {
+        expect(_resolver.resolveAny.getCall(0).args[0]).to.equal('node1.node.consul');
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('queryAny ENOTFOUND node1.node.consul');
+        expect(err.code).to.equal('ENOTFOUND');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should not resolve CNAME record when node not found
+    
     it('should error resolving CNAME record when encountering resolver error', function(done) {
       var error = new Error('queryAny EREFUSED hashicorp.node.consulx');
       error.code = 'EREFUSED';
