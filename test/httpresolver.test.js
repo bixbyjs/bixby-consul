@@ -116,6 +116,21 @@ describe('HTTPResolver', function() {
       });
     }); // should resolve CNAME record of external node in datacenter
     
+    it('should error resolving CNAME record when encountering client error', function(done) {
+      _client.catalog = {};
+      _client.catalog.node = {};
+      _client.catalog.node.services = sinon.stub().yieldsAsync(new Error('something went wrong'));
+      
+      client.resolve('hashicorp.node.consul', 'CNAME', function(err, addresses) {
+        expect(_client.catalog.node.services.getCall(0).args[0]).to.deep.equal({ node: 'hashicorp' });
+        
+        expect(err).to.be.an.instanceOf(Error);
+        expect(err.message).to.equal('something went wrong');
+        expect(addresses).to.be.undefined;
+        done();
+      });
+    }); // should error resolving CNAME record when encountering client error
+    
     it('should resolve SRV record of service', function(done) {
       _client.catalog = {};
       _client.catalog.service = {};
