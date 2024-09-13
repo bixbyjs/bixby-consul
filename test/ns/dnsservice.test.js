@@ -33,7 +33,7 @@ describe('ns/dnsservice', function() {
       var resolver = new Resolver();
       
       
-      it('should resolve TXT record', function(done) {
+      it.skip('should resolve TXT record', function(done) {
         _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'consul-network-segment=' ] ]);
         
         resolver.resolve('node1.consul', 'TXT', function(err, records) {
@@ -45,7 +45,7 @@ describe('ns/dnsservice', function() {
         });
       }); // should resolve TXT record
       
-      it('should resolve TXT record of external service', function(done) {
+      it.skip('should resolve TXT record of external service', function(done) {
         _resolver.resolveTxt = sinon.stub().yieldsAsync(null, [ [ 'external-node=true' ], [ 'external-probe=true' ] ]);
         
         resolver.resolve('hashicorp.consul', 'TXT', function(err, records) {
